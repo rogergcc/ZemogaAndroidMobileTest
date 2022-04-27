@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/blankFragment">
+
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.rogergcc.zemogaandroidmobiletest.presentation.screen.posts_screen.PostsFragment"
+        android:label="Posts"
+        tools:layout="@layout/fragment_posts">
+
+<!--        app:enterAnim="@android:anim/slide_in_left"-->
+<!--        app:exitAnim="@android:anim/slide_out_right"-->
+        <action
+            android:id="@+id/action_posts_detail"
+            app:destination="@id/detailFragment"
+
+            app:popUpToInclusive="false" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.rogergcc.zemogaandroidmobiletest.presentation.screen.post_detail_screen.DetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_detail" >
+<!--        <argument-->
+<!--            android:name="address"-->
+<!--            app:argType="com.rogergcc.zemogaandroidmobiletest.domain.model.Address" />-->
+
+<!--        <argument-->
+<!--            android:name="placeItemArg"-->
+<!--            app:argType="com.rogergcc.nearplacestest99minutes.data.model.PlaceItem"-->
+<!--            app:nullable="true" />-->
+    </fragment>
+</navigation>

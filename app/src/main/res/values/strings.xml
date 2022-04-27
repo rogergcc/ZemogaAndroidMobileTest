@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">ZemogaAndroidMobileTest</string>
+    <string name="mDescriptionPlace">descripcion</string>
+
+    <!-- PostsScreen string -->
+    <string name="deleteAll_button">Delete all</string>
+    <string name="menuitem_refresh">Refresh</string>
+
+    <!-- DetailScreen string -->
+    <string name="body_header">Description</string>
+    <string name="userinfo_header">User</string>
+    <string name="userinfo_name">Name:</string>
+    <string name="userinfo_email">Email:</string>
+    <string name="userinfo_phone">Phone:</string>
+    <string name="userinfo_website">Website:</string>
+    <string name="commentsection_header">COMMENTS</string>
+    <string name="favorite">favorite</string>
+
+    <string name="menuitem_delete">Delete</string>
+    <string name="menuitem_favourite">Toogle Fav.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

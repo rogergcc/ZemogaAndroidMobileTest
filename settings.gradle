@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+//    dependencies {
+//        def nav_version = "2.3.5"
+//        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+//
+//    }
+}
+rootProject.name = "ZemogaAndroidMobileTest"
+include ':app'
