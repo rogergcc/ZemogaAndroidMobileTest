@@ -1,5 +1,6 @@
 package com.rogergcc.zemogaandroidmobiletest.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,12 +24,14 @@ class PostViewModel @Inject constructor(
     private val deleteAllPostUseCase: DeleteAllPostUseCase,
     private val refreshPostsUseCase: RefreshPostsUseCase
 ) : ViewModel() {
-
     val posts = MutableLiveData<List<Post>>()
     val selectedPost = MutableLiveData<Post>()
     val selectedPostAuthor = MutableLiveData<User?>()
     val selectedPostComments = MutableLiveData<List<Comment>>()
     val deletionSuccess = MutableLiveData<Boolean>(false)
+
+    private val _isFavorite = MutableLiveData<Int>()
+    val isFavorite: LiveData<Int> get() = _isFavorite
 
     fun onEvent(event: PostEvent) {
         when(event) {
@@ -37,6 +40,7 @@ class PostViewModel @Inject constructor(
             }
             is PostEvent.ClickOnPost -> {
                 selectedPost.postValue(event.post)
+                _isFavorite.value=event.post.isFavourite
             }
             is PostEvent.LoadPostAuthor -> {
                 readAuthorInfoOfPost(event.userId)
@@ -45,7 +49,8 @@ class PostViewModel @Inject constructor(
                 readAllCommentsOfPost(event.postId)
             }
             is PostEvent.ToggleFavouritePost -> {
-                val updatedPost = selectedPost.value!!.copy(isFavourite = 1-selectedPost.value!!.isFavourite)
+                val isFavoriteRef = if(event.isFavorite==0)1 else 0
+                val updatedPost = selectedPost.value!!.copy(isFavourite =isFavoriteRef)
                 changeFavouriteStatusOfPost(updatedPost)
             }
             is PostEvent.DeletePost -> {
@@ -62,7 +67,7 @@ class PostViewModel @Inject constructor(
 
 
     private fun readAllPosts() {
-        readPostsUseCase.invoke().onEach { result ->
+        readPostsUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     posts.postValue(result.data ?: emptyList())
@@ -78,7 +83,7 @@ class PostViewModel @Inject constructor(
     }
 
     private fun readAuthorInfoOfPost(userId: Int) {
-        readUserInfoUseCase.invoke(userId = userId).onEach { result ->
+        readUserInfoUseCase(userId = userId).onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     selectedPostAuthor.postValue(result.data)
@@ -94,7 +99,7 @@ class PostViewModel @Inject constructor(
     }
 
     private fun readAllCommentsOfPost(postId: Int) {
-        readCommentsUseCase.invoke(postId = postId).onEach { result ->
+        readCommentsUseCase(postId = postId).onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     selectedPostComments.postValue(result.data ?: emptyList())
@@ -110,10 +115,10 @@ class PostViewModel @Inject constructor(
     }
 
     private fun changeFavouriteStatusOfPost(post: Post) {
-        changeFavStatusUseCase.invoke(post).onEach { result ->
+        changeFavStatusUseCase(post).onEach { result ->
             when(result) {
                 is Resource.Success -> {
-
+                    _isFavorite.value=result.data?.isFavourite
                 }
                 is Resource.Error -> {
 
@@ -126,7 +131,7 @@ class PostViewModel @Inject constructor(
     }
 
     private fun deleteCurrentPost(post: Post) {
-        deletePostUseCase.invoke(post).onEach { result ->
+        deletePostUseCase(post).onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     deletionSuccess.postValue(true)
@@ -142,7 +147,7 @@ class PostViewModel @Inject constructor(
     }
 
     private fun deleteAllPosts() {
-        deleteAllPostUseCase.invoke().onEach { result ->
+        deleteAllPostUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     posts.postValue(emptyList())
@@ -158,7 +163,7 @@ class PostViewModel @Inject constructor(
     }
 
     private fun refreshPosts() {
-        refreshPostsUseCase.invoke().onEach { result ->
+        refreshPostsUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {
                     posts.postValue(result.data ?: emptyList())
@@ -171,6 +176,10 @@ class PostViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    companion object {
+        private const val TAG = "PostViewModel"
     }
 
 }

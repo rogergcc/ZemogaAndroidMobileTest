@@ -1,13 +1,11 @@
 package com.rogergcc.zemogaandroidmobiletest.presentation.screen.posts_screen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,11 +30,6 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
     private lateinit var postsListPagerAdapter: PostsListPagerAdapter
     private lateinit var viewPager: ViewPager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,17 +46,17 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-        binding.defaultToolbar.inflateMenu(R.menu.menu_posts)
-        binding.defaultToolbar.setOnMenuItemClickListener { item ->
-            Log.d("MyTesting", "ItemSelection")
-            when (item.itemId) {
-                R.id.mi_refresh -> {
-                    postViewModel.onEvent(PostEvent.RefreshPostList)
-                    true
-                }
-                else -> true
-            }
-        }
+//        binding.defaultToolbar.inflateMenu(R.menu.menu_posts)
+//        binding.defaultToolbar.setOnMenuItemClickListener { item ->
+//            Log.d("MyTesting", "ItemSelection")
+//            when (item.itemId) {
+//                R.id.mi_refresh -> {
+//                    postViewModel.onEvent(PostEvent.RefreshPostList)
+//                    true
+//                }
+//                else -> true
+//            }
+//        }
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.defaultToolbar
             .setupWithNavController(navController, appBarConfiguration)
@@ -75,28 +68,6 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
         binding.tabLayout.setupWithViewPager(binding.pager)
 
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        postViewModel.onEvent(PostEvent.LoadPostList)
-        postViewModel.posts.observe(requireActivity(), Observer {
-            //Log.d("MyTesting", it.toString())
-            //initRecyclerView(it)
-        })
-
-    }
-
-    /*private fun initRecyclerView(posts : List<Post>) {
-        binding.rvPosts.layoutManager = LinearLayoutManager(activity)
-        binding.rvPosts.adapter = PostAdapter(posts, object : PostItemListener {
-            override fun onItemClick(post: Post) {
-                postViewModel.onEvent(PostEvent.ClickOnPost(post))
-                val action = BlankFragmentDirections.actionPostsDetail()
-                navController.navigate(action)
-            }
-        })
-    }*/
 
 
 }

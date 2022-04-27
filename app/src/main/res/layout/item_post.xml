@@ -10,50 +10,46 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
+
         app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
         app:strokeColor="@color/cardview_shadow_end_color"
         app:cardCornerRadius="12dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="9dp"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
 
-                <ImageView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="fwqrqwrr rqwrqwrqwrqw rqwwwwwwwwwwwwwwwwwwwrwqrwqrrrrrrrrrrrrrwqqqqq"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_favIcon"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    android:id="@+id/iv_favIcon"
+            <ImageView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                android:id="@+id/iv_favIcon"
 
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_round_favorite_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_favIcon"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:scaleType="centerCrop"
 
 
+                android:src="@drawable/ic_round_favorite_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@tools:sample/avatars" />
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
