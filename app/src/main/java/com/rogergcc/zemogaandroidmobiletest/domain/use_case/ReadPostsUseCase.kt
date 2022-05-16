@@ -14,6 +14,9 @@ class ReadPostsUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Post>>> {
         return readPosts().map {
             when (it) {
+//                is Resource.Loading ->{
+//                    Resource.Loading()
+//                }
                 is Resource.Success -> {
                     Resource.Success(data = orderPostsFavourites(it.data!!))
                 }

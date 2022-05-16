@@ -76,7 +76,6 @@ class PostViewModel @Inject constructor(
                     posts.postValue(emptyList())
                 }
                 is Resource.Loading -> {
-
                 }
             }
         }.launchIn(viewModelScope)

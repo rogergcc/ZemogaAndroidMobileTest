@@ -62,7 +62,7 @@ class SimpleListFragment : Fragment(R.layout.fragment_simple_list) {
             postViewModel.onEvent(PostEvent.RefreshPostList)
         }
         postViewModel.onEvent(PostEvent.LoadPostList)
-        postViewModel.posts.observe(requireActivity()) { posts ->
+        postViewModel.posts.observe(viewLifecycleOwner) { posts ->
             //Log.d("MyTesting", it.toString())
             if (param1) {
                 initRecyclerView(selectFavOnly(posts))
